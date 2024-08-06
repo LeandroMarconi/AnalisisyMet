@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libros Disponibles</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="text-center">Libros Disponibles</h2>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for libro in libros %}
+                <tr>
+                    <td>{{ libro[0] }}</td>
+                    <td>{{ libro[1] }}</td>
+                    <td>{{ libro[2] }}</td>
+                    <td>{{ libro[3] }}</td>
+                    <td>{{ libro[4] }}</td>
+                    <td>
+                        <form action="/update_stock" method="post" class="form-inline">
+                            <input type="hidden" name="libro_id" value="{{ libro[0] }}">
+                            <div class="form-group">
+                                <input type="number" name="cantidad" class="form-control" min="1" max="{{ libro[4] }}" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger ml-2">Descontar Stock</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <button onclick="window.location.href='/login'" class="btn btn-secondary">Logout</button>
+    </div>
+</body>
+</html>
